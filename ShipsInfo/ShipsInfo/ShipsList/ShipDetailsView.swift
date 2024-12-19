@@ -24,6 +24,9 @@ final class ShipDetailsView: UIView {
             nameLabel?.valueText = entity.name
             typeLabel?.valueText = entity.type
             yearLabel?.valueText = entity.year
+            weightLabel?.valueText = entity.weight
+            portLabel?.valueText = entity.homePort
+            rolesTextView?.content = entity.roles
         }
     }
     
