@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DataLabel" customModule="ShipsInfo" customModuleProvider="target">
+            <connections>
+                <outlet property="label" destination="B6s-CA-8pi" id="qzu-FL-fh1"/>
+                <outlet property="value" destination="WnN-nV-Eea" id="pie-8T-MKh"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="4VY-bB-hBq">
+            <rect key="frame" x="0.0" y="0.0" width="298" height="45"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="300" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" text="Data label:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6s-CA-8pi">
+                    <rect key="frame" x="0.0" y="4" width="86.666666666666671" height="37"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data value (i.e. some text)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WnN-nV-Eea">
+                    <rect key="frame" x="94.666666666666671" y="4" width="198.33333333333331" height="37"/>
+                    <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="B6s-CA-8pi" secondAttribute="bottom" constant="4" id="6bH-2c-LpH"/>
+                <constraint firstItem="B6s-CA-8pi" firstAttribute="leading" secondItem="4VY-bB-hBq" secondAttribute="leading" id="HQe-gR-3b2"/>
+                <constraint firstItem="WnN-nV-Eea" firstAttribute="leading" secondItem="B6s-CA-8pi" secondAttribute="trailing" constant="8" id="KLV-Ob-vTS"/>
+                <constraint firstItem="B6s-CA-8pi" firstAttribute="top" secondItem="4VY-bB-hBq" secondAttribute="top" constant="4" id="NtL-kN-YeL"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WnN-nV-Eea" secondAttribute="trailing" id="QUI-En-no3"/>
+                <constraint firstAttribute="bottom" secondItem="WnN-nV-Eea" secondAttribute="bottom" constant="4" id="WZE-pI-vBK"/>
+                <constraint firstItem="WnN-nV-Eea" firstAttribute="top" secondItem="4VY-bB-hBq" secondAttribute="top" constant="4" id="unh-G9-wYw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="119.08396946564885" y="-279.22535211267609"/>
+        </view>
+    </objects>
+</document>

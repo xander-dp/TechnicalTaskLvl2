@@ -58,6 +58,17 @@ extension ShipsListViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        let sb = UIStoryboard(name: "Main", bundle: .main)
+        let vc = sb.instantiateViewController(withIdentifier: "ShipDetailsViewController") as? ShipDetailsViewController
+        
+        guard let vc else { return }
+        
+        vc.modalTransitionStyle = .coverVertical
+        vc.modalPresentationStyle = .pageSheet
+        vc.entity = self.dataSource[indexPath.row]
+        
+        self.present(vc, animated: true)
     }
 }
 

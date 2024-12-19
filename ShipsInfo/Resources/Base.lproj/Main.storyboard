@@ -33,17 +33,19 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCZ-gp-YCp" userLabel="Image Wrapper">
                                                     <rect key="frame" x="0.0" y="0.0" width="176.66666666666666" height="146"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IxE-zh-Kin">
-                                                            <rect key="frame" x="20.000000000000007" y="19" width="109.66666666666669" height="108"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IxE-zh-Kin" customClass="RoundedImageView" customModule="ShipsInfo" customModuleProvider="target">
+                                                            <rect key="frame" x="20" y="20.666666666666664" width="106" height="104.66666666666669"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="IxE-zh-Kin" secondAttribute="height" multiplier="1:1" id="LIA-6I-aVj"/>
+                                                                <constraint firstAttribute="height" constant="120" id="O7M-4I-0bl"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="IxE-zh-Kin" firstAttribute="centerY" secondItem="pCZ-gp-YCp" secondAttribute="centerY" id="Evc-93-gLh"/>
                                                         <constraint firstItem="IxE-zh-Kin" firstAttribute="leading" secondItem="pCZ-gp-YCp" secondAttribute="leading" constant="20" id="TeM-t1-LHX"/>
-                                                        <constraint firstItem="IxE-zh-Kin" firstAttribute="height" secondItem="pCZ-gp-YCp" secondAttribute="height" multiplier="3:4" id="pWw-kv-vlo"/>
+                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IxE-zh-Kin" secondAttribute="bottom" constant="20" id="cQQ-Lr-maA"/>
+                                                        <constraint firstItem="IxE-zh-Kin" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pCZ-gp-YCp" secondAttribute="top" constant="20" id="cfw-6m-9Iu"/>
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uUy-j6-MHo">
@@ -117,8 +119,126 @@
             </objects>
             <point key="canvasLocation" x="-156" y="-673"/>
         </scene>
+        <!--Ship Details View Controller-->
+        <scene sceneID="D5H-D4-Fgr">
+            <objects>
+                <viewController storyboardIdentifier="ShipDetailsViewController" id="FWW-8Z-8iX" customClass="ShipDetailsViewController" customModule="ShipsInfo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2dX-q3-7Q7" customClass="ShipDetailsView" customModule="ShipsInfo" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofw-2T-jb4">
+                                <rect key="frame" x="318" y="8" width="67" height="34.333333333333336"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Close"/>
+                                <connections>
+                                    <action selector="closeDetailsController" destination="FWW-8Z-8iX" eventType="touchUpInside" id="A8Z-RU-UuC"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="externaldrive.fill.trianglebadge.exclamationmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="86u-KQ-8Od" customClass="RoundedImageView" customModule="ShipsInfo" customModuleProvider="target">
+                                <rect key="frame" x="78.666666666666671" y="41.999999999999986" width="234.33333333333331" height="231.66666666666669"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="86u-KQ-8Od" secondAttribute="height" multiplier="1:1" id="g1U-bE-Fag"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggD-SS-D56" userLabel="Ship Data Wrapper">
+                                <rect key="frame" x="20" y="305" width="353" height="533"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hgm-Pj-CQI">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="331.33333333333331"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="54F-gH-HKn" customClass="DataLabel" customModule="ShipsInfo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="60"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Ship name:"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sh7-v3-LAM" customClass="DataLabel" customModule="ShipsInfo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="68" width="353" height="59.666666666666657"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                        <real key="value" value="17"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Ship type:"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3L-cV-x6X" customClass="DataLabel" customModule="ShipsInfo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="135.66666666666669" width="353" height="60"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Built year:"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ky8-XU-fwd" customClass="DataLabel" customModule="ShipsInfo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="203.66666666666669" width="353" height="59.666666666666686"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Weight:"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWh-uC-nP0" customClass="DataLabel" customModule="ShipsInfo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="271.33333333333337" width="353" height="60"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Home port:"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96L-zj-OFO" userLabel="TextViewWrapper" customClass="LabeledTextView" customModule="ShipsInfo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="351" width="353" height="178"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Role:"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="96L-zj-OFO" firstAttribute="width" secondItem="ggD-SS-D56" secondAttribute="width" id="1i0-kK-iJ9"/>
+                                    <constraint firstItem="Hgm-Pj-CQI" firstAttribute="top" secondItem="ggD-SS-D56" secondAttribute="top" id="Z6b-cU-nH9"/>
+                                    <constraint firstAttribute="bottom" secondItem="96L-zj-OFO" secondAttribute="bottom" constant="4" id="biV-tT-8EU"/>
+                                    <constraint firstItem="Hgm-Pj-CQI" firstAttribute="width" secondItem="ggD-SS-D56" secondAttribute="width" id="hxl-pD-UBb"/>
+                                    <constraint firstItem="96L-zj-OFO" firstAttribute="centerX" secondItem="ggD-SS-D56" secondAttribute="centerX" id="iU6-Gi-JiA"/>
+                                    <constraint firstItem="96L-zj-OFO" firstAttribute="height" secondItem="ggD-SS-D56" secondAttribute="height" multiplier="1:3" id="mCk-gK-qI3"/>
+                                    <constraint firstItem="96L-zj-OFO" firstAttribute="top" secondItem="Hgm-Pj-CQI" secondAttribute="bottom" constant="20" id="swn-jc-8yH"/>
+                                    <constraint firstItem="Hgm-Pj-CQI" firstAttribute="centerX" secondItem="ggD-SS-D56" secondAttribute="centerX" id="zwW-PN-AMS"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="62b-3v-uj7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="62b-3v-uj7" firstAttribute="bottom" secondItem="ggD-SS-D56" secondAttribute="bottom" constant="4" id="82d-L6-aoj"/>
+                            <constraint firstItem="86u-KQ-8Od" firstAttribute="top" secondItem="62b-3v-uj7" secondAttribute="top" constant="40" id="Aqz-7H-bZ1"/>
+                            <constraint firstItem="86u-KQ-8Od" firstAttribute="leading" secondItem="62b-3v-uj7" secondAttribute="leading" constant="80" id="Goy-uK-fBD"/>
+                            <constraint firstItem="62b-3v-uj7" firstAttribute="trailing" secondItem="86u-KQ-8Od" secondAttribute="trailing" constant="80" id="HRE-d6-QH7"/>
+                            <constraint firstItem="ggD-SS-D56" firstAttribute="top" secondItem="86u-KQ-8Od" secondAttribute="bottom" constant="32" id="JLt-QZ-Iys"/>
+                            <constraint firstItem="62b-3v-uj7" firstAttribute="trailing" secondItem="ggD-SS-D56" secondAttribute="trailing" constant="20" id="UlN-Ia-1GK"/>
+                            <constraint firstItem="62b-3v-uj7" firstAttribute="trailing" secondItem="ofw-2T-jb4" secondAttribute="trailing" constant="8" id="e9v-Uy-6xu"/>
+                            <constraint firstItem="ofw-2T-jb4" firstAttribute="top" secondItem="62b-3v-uj7" secondAttribute="top" constant="8" id="iOL-zG-wYz"/>
+                            <constraint firstItem="ggD-SS-D56" firstAttribute="leading" secondItem="62b-3v-uj7" secondAttribute="leading" constant="20" id="pFJ-X8-eed"/>
+                            <constraint firstItem="ofw-2T-jb4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="62b-3v-uj7" secondAttribute="leading" symbolic="YES" id="yWU-K3-C9W"/>
+                            <constraint firstItem="86u-KQ-8Od" firstAttribute="centerX" secondItem="62b-3v-uj7" secondAttribute="centerX" id="z6s-Cy-zrJ"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="nameLabel" destination="54F-gH-HKn" id="P69-za-scA"/>
+                            <outlet property="portLabel" destination="fWh-uC-nP0" id="a7U-ty-ehw"/>
+                            <outlet property="rolesTextView" destination="96L-zj-OFO" id="VWB-Ni-Woa"/>
+                            <outlet property="shipImageView" destination="86u-KQ-8Od" id="CJ8-Aa-iRc"/>
+                            <outlet property="typeLabel" destination="Sh7-v3-LAM" id="nlW-3D-gvp"/>
+                            <outlet property="weightLabel" destination="ky8-XU-fwd" id="aJp-da-pK0"/>
+                            <outlet property="yearLabel" destination="H3L-cV-x6X" id="4xf-JG-k4b"/>
+                        </connections>
+                    </view>
+                    <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hKZ-tR-kKQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="862" y="-673"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="externaldrive.fill.trianglebadge.exclamationmark" catalog="system" width="128" height="97"/>
         <image name="folder.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
