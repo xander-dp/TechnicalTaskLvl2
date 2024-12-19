@@ -1,24 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="igi-lr-bxl">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Ships List View Controller-->
+        <scene sceneID="vdc-58-Hf0">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <tableViewController id="igi-lr-bxl" customClass="ShipsListViewController" customModule="ShipsInfo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="150" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="8FE-GA-6Ac">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <viewLayoutGuide key="contentLayoutGuide" id="FMI-1J-s3T"/>
+                        <viewLayoutGuide key="frameLayoutGuide" id="568-UP-MXA"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="shipCellReuseIdentifier" rowHeight="170" id="iue-Qs-HPC" customClass="ShipTableViewCell" customModule="ShipsInfo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.333332061767578" width="393" height="170"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iue-Qs-HPC" id="QBQ-DO-bI4">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="170"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tiE-pd-0jU">
+                                            <rect key="frame" x="20" y="12" width="353" height="146"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCZ-gp-YCp" userLabel="Image Wrapper">
+                                                    <rect key="frame" x="0.0" y="0.0" width="176.66666666666666" height="146"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IxE-zh-Kin">
+                                                            <rect key="frame" x="20.000000000000007" y="19" width="109.66666666666669" height="108"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="IxE-zh-Kin" secondAttribute="height" multiplier="1:1" id="LIA-6I-aVj"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="IxE-zh-Kin" firstAttribute="centerY" secondItem="pCZ-gp-YCp" secondAttribute="centerY" id="Evc-93-gLh"/>
+                                                        <constraint firstItem="IxE-zh-Kin" firstAttribute="leading" secondItem="pCZ-gp-YCp" secondAttribute="leading" constant="20" id="TeM-t1-LHX"/>
+                                                        <constraint firstItem="IxE-zh-Kin" firstAttribute="height" secondItem="pCZ-gp-YCp" secondAttribute="height" multiplier="3:4" id="pWw-kv-vlo"/>
+                                                    </constraints>
+                                                </view>
+                                                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uUy-j6-MHo">
+                                                    <rect key="frame" x="176.66666666666663" y="20" width="176.33333333333337" height="106"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ship Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbp-Ar-nfu">
+                                                            <rect key="frame" x="0.0" y="0.0" width="176.33333333333334" height="21.333333333333332"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" verticalCompressionResistancePriority="756" text="Ship Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H0a-GQ-Hta">
+                                                            <rect key="frame" x="0.0" y="41.333333333333329" width="176.33333333333334" height="21.333333333333329"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" verticalCompressionResistancePriority="756" text="Built Year" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d18-GH-XwJ">
+                                                            <rect key="frame" x="0.0" y="82.666666666666671" width="176.33333333333334" height="23.333333333333329"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="pCZ-gp-YCp" firstAttribute="top" secondItem="tiE-pd-0jU" secondAttribute="top" id="06x-Wj-Kbs"/>
+                                                <constraint firstItem="uUy-j6-MHo" firstAttribute="top" secondItem="tiE-pd-0jU" secondAttribute="top" constant="20" id="0GB-Hw-Zeb"/>
+                                                <constraint firstAttribute="bottom" secondItem="pCZ-gp-YCp" secondAttribute="bottom" id="3ij-fs-cFE"/>
+                                                <constraint firstItem="pCZ-gp-YCp" firstAttribute="width" secondItem="tiE-pd-0jU" secondAttribute="width" multiplier="0.5" id="BKL-IA-9te"/>
+                                                <constraint firstAttribute="trailing" secondItem="uUy-j6-MHo" secondAttribute="trailing" id="Qvj-RC-aJi"/>
+                                                <constraint firstItem="pCZ-gp-YCp" firstAttribute="leading" secondItem="tiE-pd-0jU" secondAttribute="leading" id="brN-mr-SpU"/>
+                                                <constraint firstAttribute="bottom" secondItem="uUy-j6-MHo" secondAttribute="bottom" constant="20" id="fSv-aV-FIC"/>
+                                                <constraint firstItem="uUy-j6-MHo" firstAttribute="leading" secondItem="pCZ-gp-YCp" secondAttribute="trailing" id="xCU-av-1SC"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <viewLayoutGuide key="safeArea" id="A8v-8c-0hf"/>
+                                    <constraints>
+                                        <constraint firstItem="tiE-pd-0jU" firstAttribute="leading" secondItem="A8v-8c-0hf" secondAttribute="leading" constant="20" id="cQr-cR-obk"/>
+                                        <constraint firstItem="A8v-8c-0hf" firstAttribute="trailing" secondItem="tiE-pd-0jU" secondAttribute="trailing" constant="20" id="qqI-0L-3u7"/>
+                                        <constraint firstItem="A8v-8c-0hf" firstAttribute="top" secondItem="tiE-pd-0jU" secondAttribute="top" constant="-12" id="wHX-xl-qeL"/>
+                                        <constraint firstItem="tiE-pd-0jU" firstAttribute="bottom" secondItem="A8v-8c-0hf" secondAttribute="bottom" constant="-12" id="xcn-0G-MgA"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="contentWrapperView" destination="tiE-pd-0jU" id="AK9-hJ-CZI"/>
+                                    <outlet property="nameLabel" destination="tbp-Ar-nfu" id="SBv-tx-hSi"/>
+                                    <outlet property="shipImageView" destination="IxE-zh-Kin" id="eZa-A5-KT6"/>
+                                    <outlet property="typeLabel" destination="H0a-GQ-Hta" id="ThC-9M-rtV"/>
+                                    <outlet property="yearLabel" destination="d18-GH-XwJ" id="Zyk-Xn-Hgf"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="igi-lr-bxl" id="gGR-EZ-evb"/>
+                            <outlet property="delegate" destination="igi-lr-bxl" id="fxd-s9-m6z"/>
+                        </connections>
+                    </tableView>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="RBa-Cz-hxL">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshControllTriggered" destination="igi-lr-bxl" eventType="primaryActionTriggered" id="5Wn-mj-GG2"/>
+                        </connections>
+                    </refreshControl>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l46-bJ-9Zn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-156" y="-673"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="folder.circle" catalog="system" width="128" height="123"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
