@@ -30,7 +30,7 @@ final class ShipDetailsView: UIView {
         }
     }
     
-    func configureView(with entity: ShipEntity) {
-        self.entity = ShipEntityUIRepresentation(with: entity)
+    func configureView(with entity: ShipEntityUIRepresentation) {
+        self.entity = entity
     }
 }
