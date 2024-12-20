@@ -22,7 +22,7 @@ final class ShipsListViewController: UITableViewController {
     private var viewModel: ShipsListViewModel!
     
     static func instantiate(viewModel: ShipsListViewModel) -> ShipsListViewController {
-        let storyboard = UIStoryboard(name: ShipsListViewController.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: Self.storyboardName, bundle: nil)
         let identifier = String(describing: ShipsListViewController.self)
         let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! ShipsListViewController
         viewController.viewModel = viewModel
@@ -34,6 +34,7 @@ final class ShipsListViewController: UITableViewController {
         
         configureTableView()
         bindViewModel()
+        self.viewModel?.getData()
         self.viewModel?.viewRequestedRefresh()
     }
     

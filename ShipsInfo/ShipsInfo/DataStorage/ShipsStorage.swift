@@ -6,7 +6,7 @@
 //
 
 protocol ShipsStorage {
-    func create(entity: ShipEntity) throws
+    func write(entities: [ShipEntity]) throws
     func read() throws -> [ShipEntity]
     func delete(entity: ShipEntity) throws
 }
