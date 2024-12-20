@@ -8,6 +8,7 @@
 import UIKit
 
 fileprivate let dataModelName = "ShipsInfo"
+fileprivate let mainApiLink = "https://api.spacexdata.com/v4/ships"
 
 final class AppCoordinator {
     private let window: UIWindow
@@ -15,13 +16,21 @@ final class AppCoordinator {
     private var shipsListCoordinator: ShipsListCoordinator?
     
     private let dataStorage: ShipsStorage
+    private let dataRequester: DataHTTPRequester
+    private let apiService: ShipsAPIService
     private let dataService: ShipsDataService
     
     init(window: UIWindow) {
         self.window = window
         
         self.dataStorage = ShipsStorageCoreData(name: dataModelName)
-        self.dataService = ShipsDataServiceImplementation(dataStorage: self.dataStorage)
+        self.dataRequester = ShipsDataHTTPRequester()
+        self.apiService = ShipsAPIServiceImplementation(dataRequester: self.dataRequester)
+        self.dataService = ShipsDataServiceImplementation(
+            dataStorage: self.dataStorage,
+            apiService: self.apiService,
+            apiLink: mainApiLink
+        )
     }
     
     func start() {
