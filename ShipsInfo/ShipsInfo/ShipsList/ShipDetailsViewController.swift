@@ -15,7 +15,7 @@ final class ShipDetailsViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     
     static func instantiate(viewModel: ShipDetailsViewModel) -> ShipDetailsViewController {
-        let storyboard = UIStoryboard(name: ShipDetailsViewController.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: Self.storyboardName, bundle: nil)
         let identifier = String(describing: ShipDetailsViewController.self)
         let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! ShipDetailsViewController
         viewController.viewModel = viewModel

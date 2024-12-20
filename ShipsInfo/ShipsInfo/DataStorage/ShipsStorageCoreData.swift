@@ -7,6 +7,8 @@
 
 import CoreData
 
+fileprivate let uniqueProperty = "name"
+
 final class ShipsStorageCoreData: ShipsStorage {
     private let container: NSPersistentContainer
     
@@ -16,7 +18,7 @@ final class ShipsStorageCoreData: ShipsStorage {
     
     init(name: String) {
         self.container = NSPersistentContainer(name: name)
-        self.container.viewContext.mergePolicy = NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType
+        self.container.viewContext.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
         
         self.container.loadPersistentStores { (storeDescription, error) in
             if let error = error {
@@ -25,15 +27,17 @@ final class ShipsStorageCoreData: ShipsStorage {
         }
     }
     
-    func create(entity: ShipEntity) throws {
-        let entityMO = ShipEntityMO(context: self.managedContext, with: entity)
-        try entityMO.managedObjectContext?.save()
+    func write(entities: [ShipEntity]) throws {
+        for entity in entities {
+            _ = ShipEntityMO(context: self.managedContext, with: entity)
+        }
+        try self.managedContext.save()
     }
     
     func read() throws -> [ShipEntity] {
         let fetchRequest = ShipEntityMO.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(
-            key: "name",
+            key: uniqueProperty,
             ascending: true,
             selector: #selector(NSString.localizedStandardCompare)
         )]
@@ -51,7 +55,7 @@ final class ShipsStorageCoreData: ShipsStorage {
     
     private func getEntity(with name: String) throws -> ShipEntityMO {
         let lhs = NSExpression(forConstantValue: name)
-        let rhs = NSExpression(forKeyPath: "email")
+        let rhs = NSExpression(forKeyPath: uniqueProperty)
         let predicate = NSComparisonPredicate(
             leftExpression: lhs,
             rightExpression: rhs,

@@ -12,15 +12,17 @@ final class ShipsListCoordinator: BaseModuleCoordinator {
         shipsListViewController
     }
     let finishAction: () -> Void
+    private let dataService: ShipsDataService
 
     private weak var shipsListViewController: ShipsListViewController?
 
-    init(finishAction: @escaping () -> Void) {
+    init(dataService: ShipsDataService, finishAction: @escaping () -> Void) {
+        self.dataService = dataService
         self.finishAction = finishAction
     }
     
     func start() {
-        let viewModel = ShipsListViewModel()
+        let viewModel = ShipsListViewModel(dataService: self.dataService)
         self.shipsListViewController = ShipsListViewController.instantiate(viewModel: viewModel)
         
         self.shipsListViewController?.delegate = self

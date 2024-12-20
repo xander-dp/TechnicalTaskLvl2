@@ -18,8 +18,31 @@ final class ShipsListViewModel: ObservableObject {
         }
     }
     
+    private let dataService: ShipsDataService
+    private var cancellables: Set<AnyCancellable>
+    
+    init(dataService: ShipsDataService) {
+        self.dataService = dataService
+        self.cancellables = Set<AnyCancellable>()
+    }
+    
+    func getData() {
+        Task {
+            let fetchResult = await self.dataService.fetchData()
+            
+            if case .success(let data) = fetchResult {
+                self.dataSource = data
+            }
+        }
+        .store(in: &cancellables)
+    }
+    
     func viewRequestedRefresh() {
-        self.dataSource = ShipsListViewModel.getHardcodedData()
+        Task {
+            await self.dataService.synchronizeData()
+            self.getData()
+        }
+        .store(in: &cancellables)
     }
     
     func viewRequestedSelection(at index: Int) {
@@ -27,45 +50,10 @@ final class ShipsListViewModel: ObservableObject {
     }
 
     func viewRequestedDeletion(at index: Int) {
-        self.dataSource.remove(at: index)
-    }
-}
-
-//TEMP hardcoded data
-private extension ShipsListViewModel {
-    static func getHardcodedData() -> [ShipEntity] {
-        let jsonData = readLocalJSONFile(forName: "SampleRecords")
-        if let data = jsonData {
-            if let sampleRecordsList = parse(jsonData: data) {
-                return sampleRecordsList
-            } else {
-                fatalError("unable to parse file")
-            }
-        } else {
-            fatalError("unable to read file")
+        let deletedEntity = self.dataSource.remove(at: index)
+        Task {
+            await self.dataService.delete(deletedEntity)
         }
-    }
-    
-    static func parse(jsonData: Data) -> [ShipEntity]? {
-        do {
-            let decodedData = try JSONDecoder().decode([ShipEntity].self, from: jsonData)
-            return decodedData
-        } catch {
-            print("error: \(error)")
-        }
-        return nil
-    }
-    
-    static func readLocalJSONFile(forName name: String) -> Data? {
-        do {
-            if let filePath = Bundle.main.path(forResource: name, ofType: "json") {
-                let fileUrl = URL(fileURLWithPath: filePath)
-                let data = try Data(contentsOf: fileUrl)
-                return data
-            }
-        } catch {
-            print("error: \(error)")
-        }
-        return nil
+        .store(in: &cancellables)
     }
 }
