@@ -15,9 +15,13 @@ final class ShipsDataServiceImplementation: ShipsDataService {
     )
     
     private let dataStorage: ShipsStorage
+    private let apiService: ShipsAPIService
+    private let apiLink: String
     
-    init(dataStorage: ShipsStorage) {
+    init(dataStorage: ShipsStorage, apiService: ShipsAPIService, apiLink: String) {
         self.dataStorage = dataStorage
+        self.apiService = apiService
+        self.apiLink = apiLink
     }
     
     func fetchData() async -> Result<[ShipEntity], Error> {
@@ -32,7 +36,7 @@ final class ShipsDataServiceImplementation: ShipsDataService {
     
     func synchronizeData() async {
         do {
-            let receivedData = Self.getHardcodedData()
+            let receivedData = try await self.apiService.getShipsData(stringURLRepresentation: self.apiLink)
             try dataStorage.write(entities: receivedData)
         } catch {
             Self.logger.error("\(Self.getErrorDesciption(error: error))")
@@ -54,44 +58,5 @@ final class ShipsDataServiceImplementation: ShipsDataService {
         } else {
             return errorInfo.debugDescription
         }
-    }
-}
-
-//TEMP hardcoded data
-private extension ShipsDataServiceImplementation {
-    static func getHardcodedData() -> [ShipEntity] {
-        let jsonData = readLocalJSONFile(forName: "SampleRecords")
-        if let data = jsonData {
-            if let sampleRecordsList = parse(jsonData: data) {
-                return sampleRecordsList
-            } else {
-                fatalError("unable to parse file")
-            }
-        } else {
-            fatalError("unable to read file")
-        }
-    }
-    
-    static func parse(jsonData: Data) -> [ShipEntity]? {
-        do {
-            let decodedData = try JSONDecoder().decode([ShipEntity].self, from: jsonData)
-            return decodedData
-        } catch {
-            print("error: \(error)")
-        }
-        return nil
-    }
-    
-    static func readLocalJSONFile(forName name: String) -> Data? {
-        do {
-            if let filePath = Bundle.main.path(forResource: name, ofType: "json") {
-                let fileUrl = URL(fileURLWithPath: filePath)
-                let data = try Data(contentsOf: fileUrl)
-                return data
-            }
-        } catch {
-            print("error: \(error)")
-        }
-        return nil
     }
 }
