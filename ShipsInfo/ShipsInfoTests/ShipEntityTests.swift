@@ -51,9 +51,9 @@ import Foundation
             "roles": []
         }
         """
-        let expectedData = DecodingError.self
+        let expectedError = DecodingError.self
         
-        return (input: normalEntityFields, expected: expectedData)
+        return (input: normalEntityFields, expected: expectedError)
     }
     
     static var expectingErrorFieldsWithNonIntegerNumbers: (input: String, expected: DecodingError.Type) {
@@ -65,9 +65,9 @@ import Foundation
             "roles": []
         }
         """
-        let expectedData = DecodingError.self
+        let expectedError = DecodingError.self
         
-        return (input: normalEntityFields, expected: expectedData)
+        return (input: normalEntityFields, expected: expectedError)
     }
     
     //roles always at least empty array by the schema
@@ -77,9 +77,9 @@ import Foundation
             "name": "American Champion"
         }
         """
-        let expectedData = DecodingError.self
+        let expectedError = DecodingError.self
         
-        return (input: normalEntityFields, expected: expectedData)
+        return (input: normalEntityFields, expected: expectedError)
     }
     
     //MARK: Positive cases

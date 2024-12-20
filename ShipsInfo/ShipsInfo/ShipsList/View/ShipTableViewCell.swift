@@ -31,8 +31,8 @@ final class ShipTableViewCell: UITableViewCell {
         configureLayer()
     }
     
-    func configureCell(with entity: ShipEntity) {
-        self.entity = ShipEntityUIRepresentation(with: entity)
+    func configureCell(with entity: ShipEntityUIRepresentation) {
+        self.entity = entity
     }
     
     private func configureLayer() {

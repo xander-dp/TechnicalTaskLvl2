@@ -6,18 +6,39 @@
 //
 
 import UIKit
+import Combine
 
 final class ShipDetailsViewController: UIViewController {
-    var entity: ShipEntity!
+    private static let storyboardName = "Main"
+    private var viewModel: ShipDetailsViewModel!
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    static func instantiate(viewModel: ShipDetailsViewModel) -> ShipDetailsViewController {
+        let storyboard = UIStoryboard(name: ShipDetailsViewController.storyboardName, bundle: nil)
+        let identifier = String(describing: ShipDetailsViewController.self)
+        let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! ShipDetailsViewController
+        viewController.viewModel = viewModel
+        return viewController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let entity,
+        bindViewModel()
+    }
+    
+    private func bindViewModel() {
+        guard let viewModel,
               let detailsView = self.view as? ShipDetailsView
         else { return }
         
-        detailsView.configureView(with: entity)
+        viewModel.$shipData
+            .receive(on: DispatchQueue.main)
+            .sink { item in
+                detailsView.configureView(with: item)
+            }
+            .store(in: &cancellables)
     }
     
     @IBAction func closeDetailsController() {

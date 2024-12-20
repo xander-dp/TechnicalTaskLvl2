@@ -6,31 +6,73 @@
 //
 
 import UIKit
-import SwiftUI
+import Combine
+
+protocol ShipsViewControllerDelegate: AnyObject {
+    func didSelectItem(_ item: ShipEntity)
+    func viewControllerIsDeiniting(_ sender: ShipsListViewController)
+}
 
 final class ShipsListViewController: UITableViewController {
-    private var dataSource: [ShipEntity] = []
+    weak var delegate: ShipsViewControllerDelegate?
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    private static let storyboardName = "Main"
+    private var viewModel: ShipsListViewModel!
+    
+    static func instantiate(viewModel: ShipsListViewModel) -> ShipsListViewController {
+        let storyboard = UIStoryboard(name: ShipsListViewController.storyboardName, bundle: nil)
+        let identifier = String(describing: ShipsListViewController.self)
+        let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! ShipsListViewController
+        viewController.viewModel = viewModel
+        return viewController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureTableView()
-        dataSource = getHardcodedData()
+        bindViewModel()
+        self.viewModel?.viewRequestedRefresh()
     }
     
     private func configureTableView() {
         self.tableView.rowHeight = UITableView.automaticDimension
     }
     
-    @IBAction func refreshControllTriggered() {
-        dataSource = getHardcodedData()
-        self.tableView.reloadData()
+    private func bindViewModel() {
+        guard let viewModel else { return }
         
-        if let refreshControl = self.tableView.refreshControl {
-            if refreshControl.isRefreshing {
-                refreshControl.endRefreshing()
+        viewModel.$ships
+            .receive(on: DispatchQueue.main)
+            .sink { [weak tableView] _ in
+                if let refreshControl = tableView?.refreshControl {
+                    if refreshControl.isRefreshing {
+                        refreshControl.endRefreshing()
+                    }
+                }
+                
+                tableView?.reloadData()
             }
-        }
+            .store(in: &cancellables)
+        
+        viewModel.$selectedEntity
+            .receive(on: DispatchQueue.main)
+            .sink { [weak delegate] selected in
+                if let selected {
+                    delegate?.didSelectItem(selected)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    @IBAction func refreshControllTriggered() {
+        self.viewModel?.viewRequestedRefresh()
+    }
+    
+    deinit {
+        self.delegate?.viewControllerIsDeiniting(self)
     }
 }
 
@@ -41,34 +83,26 @@ extension ShipsListViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.dataSource.count
+        self.viewModel?.ships.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell( withIdentifier: ShipTableViewCell.reuseIdentifier, for: indexPath)
         
-        guard let shipCell = cell as? ShipTableViewCell else {
+        guard let shipCell = cell as? ShipTableViewCell,
+              let viewModel
+        else {
             return cell
         }
         
-        shipCell.configureCell(with: dataSource[indexPath.row])
+        shipCell.configureCell(with: viewModel.ships[indexPath.row])
         
         return shipCell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-        
-        let sb = UIStoryboard(name: "Main", bundle: .main)
-        let vc = sb.instantiateViewController(withIdentifier: "ShipDetailsViewController") as? ShipDetailsViewController
-        
-        guard let vc else { return }
-        
-        vc.modalTransitionStyle = .coverVertical
-        vc.modalPresentationStyle = .pageSheet
-        vc.entity = self.dataSource[indexPath.row]
-        
-        self.present(vc, animated: true)
+        self.tableView.deselectRow(at: indexPath, animated: false)
+        self.viewModel?.viewRequestedSelection(at: indexPath.row)
     }
 }
 
@@ -76,8 +110,7 @@ extension ShipsListViewController {
 extension ShipsListViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) {[weak self] (_, _, completionHandler) in
-            
-            self?.dataSource.remove(at: indexPath.row)
+            self?.viewModel?.viewRequestedDeletion(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .left)
             completionHandler(true)
         }
@@ -85,44 +118,5 @@ extension ShipsListViewController {
         deleteAction.backgroundColor = .lightGray
         deleteAction.image = UIImage(systemName: "trash")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
         return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-}
-
-//TEMP hardcoded data
-private extension ShipsListViewController {
-    func getHardcodedData() -> [ShipEntity] {
-        let jsonData = readLocalJSONFile(forName: "SampleRecords")
-        if let data = jsonData {
-            if let sampleRecordsList = parse(jsonData: data) {
-                return sampleRecordsList
-            } else {
-                fatalError("unable to parse file")
-            }
-        } else {
-            fatalError("unable to read file")
-        }
-    }
-    
-    func parse(jsonData: Data) -> [ShipEntity]? {
-        do {
-            let decodedData = try JSONDecoder().decode([ShipEntity].self, from: jsonData)
-            return decodedData
-        } catch {
-            print("error: \(error)")
-        }
-        return nil
-    }
-    
-    func readLocalJSONFile(forName name: String) -> Data? {
-        do {
-            if let filePath = Bundle.main.path(forResource: name, ofType: "json") {
-                let fileUrl = URL(fileURLWithPath: filePath)
-                let data = try Data(contentsOf: fileUrl)
-                return data
-            }
-        } catch {
-            print("error: \(error)")
-        }
-        return nil
     }
 }

@@ -12,7 +12,7 @@
         <!--Ships List View Controller-->
         <scene sceneID="vdc-58-Hf0">
             <objects>
-                <tableViewController id="igi-lr-bxl" customClass="ShipsListViewController" customModule="ShipsInfo" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ShipsListViewController" id="igi-lr-bxl" customClass="ShipsListViewController" customModule="ShipsInfo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="150" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="8FE-GA-6Ac">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
